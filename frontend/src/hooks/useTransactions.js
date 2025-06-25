@@ -17,7 +17,7 @@ const useTransactions = (tenantId) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/transactions/?tenantId=${tenantId}`);
+      const response = await fetch(`/api/transactions/?tenant_id=${tenantId}`);
       if (!response.ok) {
         throw new Error(`HTTP Error, status: ${response.status}`);
       }

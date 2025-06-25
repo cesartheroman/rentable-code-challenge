@@ -1,71 +1,79 @@
 .App {
+  font-family: sans-serif;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px;
 }
 
 .App-header-minimal {
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
   margin-bottom: 20px;
 }
 
 .App-main {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.tenant-list table {
-  width: 80%;
-  margin: 20px auto;
+table {
+  width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
-.tenant-list th,
-.tenant-list td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
 }
 
-.tenant-list th {
+th {
   background-color: #f2f2f2;
-  color: #333;
 }
 
-.tenant-list tr:nth-child(even) {
-  background-color: #f9f9f9;
+button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background-color: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} 
+/* Styles for the TenantLedger component */
+.tenant-ledger-overlay {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  width: 80%; /* Adjust as needed */
+  max-width: 700px; /* Adjust as needed */
+  text-align: left;
+}
+
+.tenant-ledger-overlay h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.tenant-ledger-overlay h4 {
+  margin-top: 20px;
+  text-align: right;
+  font-size: 1.1em;
+}
+
+.tenant-ledger-overlay.error {
+  border-color: #dc3545;
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
