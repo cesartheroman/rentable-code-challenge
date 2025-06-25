@@ -23,12 +23,24 @@ table {
 th,
 td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px 8px; /* Increased padding for better readability */
   text-align: left;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #f8f9fa; /* Slightly softer gray */
+  font-weight: 600;
+  color: #495057;
+}
+
+/* Alternating row colors for better readability */
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tbody tr:hover {
+  background-color: #e9ecef;
+  transition: background-color 0.15s ease;
 }
 
 button {
@@ -38,22 +50,34 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
+/* Secondary button style for close button */
+button.secondary {
+  background-color: #6c757d;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+}
+
+button.secondary:hover {
+  background-color: #545b62;
+}
+
 /* Styles for the TenantLedger component */
 .tenant-ledger-overlay {
   margin-top: 30px;
-  padding: 20px;
-  border: 1px solid #eee;
+  padding: 25px;
+  border: 1px solid #dee2e6;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background-color: white;
-  width: 80%; /* Adjust as needed */
-  max-width: 700px; /* Adjust as needed */
+  width: 85%;
+  max-width: 800px;
   text-align: left;
 }
 
@@ -63,12 +87,32 @@ button:hover {
   align-items: center;
   margin-top: 0;
   margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e9ecef;
+  color: #495057;
 }
 
 .tenant-ledger-overlay h4 {
-  margin-top: 20px;
-  text-align: right;
+  margin: 20px 0 15px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #007bff;
+  border-radius: 4px;
   font-size: 1.1em;
+  font-weight: 600;
+}
+
+/* Balance color coding */
+.balance-positive {
+  border-left-color: #28a745 !important;
+  color: #155724;
+  background-color: #d4edda;
+}
+
+.balance-negative {
+  border-left-color: #dc3545 !important;
+  color: #721c24;
+  background-color: #f8d7da;
 }
 
 .tenant-ledger-overlay.error {
@@ -77,3 +121,36 @@ button:hover {
   color: #721c24;
 }
 
+/* Transaction type badges */
+.transaction-type-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: white;
+}
+
+.transaction-type-charge {
+  background-color: #dc3545;
+}
+
+.transaction-type-payment {
+  background-color: #28a745;
+}
+
+/* Amount column styling */
+.amount-column {
+  text-align: right;
+  font-weight: 600;
+  font-family:
+    "Courier New", monospace; /* Monospace for better number alignment */
+}
+
+.amount-charge {
+  color: #dc3545;
+}
+
+.amount-payment {
+  color: #28a745;
+}

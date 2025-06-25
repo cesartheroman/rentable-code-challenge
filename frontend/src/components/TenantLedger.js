@@ -14,13 +14,16 @@ import { calculateBalance } from "../utils/finance";
 export default function TenantLedger({ tenantId, tenantName, onClose }) {
   const { transactions, loading, error } = useTransactions(tenantId);
   const balance = calculateBalance(transactions);
+  const isNegativeBalance = balance <= 0;
 
   if (loading) {
     return (
       <div className="tenant-ledger-overlay">
         <h3>Ledger for {tenantName}</h3>
         <p>Loading transactions...</p>
-        <button onClick={onClose}>Close</button>
+        <button onClick={onClose} className="secondary">
+          Close
+        </button>
       </div>
     );
   }
@@ -30,7 +33,9 @@ export default function TenantLedger({ tenantId, tenantName, onClose }) {
       <div className="tenant-ledger-overlay error">
         <h3>Ledger for {tenantName}</h3>
         <p>Error loading ledger: {error.message}</p>
-        <button onClick={onClose}>Close</button>
+        <button onClick={onClose} className="secondary">
+          Close
+        </button>
       </div>
     );
   }
@@ -39,7 +44,11 @@ export default function TenantLedger({ tenantId, tenantName, onClose }) {
     <div className="tenant-ledger-overlay">
       <h3>
         Ledger for Tenant: {tenantName}
-        <button onClick={onClose} style={{ marginLeft: "10px" }}>
+        <button
+          onClick={onClose}
+          className="secondary"
+          style={{ marginLeft: "10px" }}
+        >
           Close
         </button>
       </h3>
@@ -47,13 +56,20 @@ export default function TenantLedger({ tenantId, tenantName, onClose }) {
         <p>No transactions found for this tenant.</p>
       ) : (
         <>
-          <h4>Current Balance: ${balance.toFixed(2)}</h4>
+          <h4
+            className={
+              isNegativeBalance ? "balance-positive" : "balance-negative"
+            }
+          >
+            Current Balance: ${Math.abs(balance).toFixed(2)}
+            {isNegativeBalance ? " (Credit)" : " (Owed)"}
+          </h4>
           <table>
             <thead>
               <tr>
                 <th>Date</th>
                 <th>Description</th>
-                <th>Amount</th>
+                <th style={{ textAlign: "right" }}>Amount</th>
                 <th>Type</th>
               </tr>
             </thead>
@@ -63,13 +79,18 @@ export default function TenantLedger({ tenantId, tenantName, onClose }) {
                   <td>{transaction.date}</td>
                   <td>{transaction.description}</td>
                   <td
-                    style={{
-                      color: transaction.type === "charge" ? "red" : "green",
-                    }}
+                    className={`amount-column ${transaction.type === "charge" ? "amount-charge" : "amount-payment"}`}
                   >
-                    ${parseFloat(transaction.amount).toFixed(2)}
+                    {transaction.type === "charge" ? "+" : "-"}$
+                    {Math.abs(parseFloat(transaction.amount)).toFixed(2)}
                   </td>
-                  <td>{transaction.type}</td>
+                  <td>
+                    <span
+                      className={`transaction-type-badge ${transaction.type === "charge" ? "transaction-type-charge" : "transaction-type-payment"}`}
+                    >
+                      {transaction.type}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
