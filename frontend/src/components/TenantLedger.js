@@ -1,9 +1,7 @@
 import React from "react";
+import useTransactions from "../hooks/useTransactions";
 
 export default function TenantLedger({ tenantId }) {
-  const useTransactions = (tenantId) => {
-    return { transactions: "", loading: "", error: "" };
-  };
   const balance = 12.0;
 
   const { transactions, loading, error } = useTransactions(tenantId);
