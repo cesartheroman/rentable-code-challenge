@@ -13,7 +13,6 @@
 * [Questions](#questions)
 
 Welcome to the Rentable Full Stack Code Challenge! This challenge is designed to assess your abilities as a full-stack engineer, specifically focusing on your comfort with Python (Django), React, consuming APIs, and processing financial data within the context of property management systems.
-
 To focus on evaluating ability to learn an existing codebase and build upon it, a base application structure is already in place. Your task is to navigate, understand, and extend this existing codebase to implement new features.
 
 Expect to take about 2 hours with the assistance of AI tooling, such as Cursor or GitHub Copilot.
@@ -24,7 +23,7 @@ This project simulates a property management system for managing tenant's and th
 
 There is a **React front end** that displays a list of Tenants with a button for viewing transaction ledgers. 
 
-There is a **Python and Django backend** with a command for importing transactions and APIs that return tenants and their transactions. The Djanog backend utilizes a SQLite database.
+There is a **Python and Django backend** with a command for importing transactions and APIs that return tenants and their transactions. The Django backend utilizes a SQLite database.
 
 **Important Note:** The backend also includes an API for getting transaction data. While the raw transaction data is available in `backend/api/integration-data/transactions.json` within this repository, this file is intended to simulate data from an external integration API. Therefore, **you should only access transaction data through the `api/simulated-pms-integration-api/transactions/` endpoint** and not directly read the JSON file.
 
