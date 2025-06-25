@@ -1,44 +1,81 @@
 import React from "react";
 import useTransactions from "../hooks/useTransactions";
+import { calculateBalance } from "../utils/finance";
 
-export default function TenantLedger({ tenantId }) {
-  const balance = 12.0;
-
+/**
+ * Renders a ledger of transactions for a specific tenant.
+ * Displays the current balance and a list of transactions.
+ *
+ * @param {object} props - The props for the component.
+ * @param {number} props.tenantId - The unique identifier of the tenant.
+ * @param {string} props.tenantName - The name of the tenant.
+ * @param {function(): void} props.onClose - Callback function to close the ledger display.
+ */
+export default function TenantLedger({ tenantId, tenantName, onClose }) {
   const { transactions, loading, error } = useTransactions(tenantId);
+  const balance = calculateBalance(transactions);
 
-  if (loading) return <div>Loading tenant ledger...</div>;
-  if (error) return <div style={{ color: "red" }}>Error: {error}</div>;
+  if (loading) {
+    return (
+      <div className="tenant-ledger-overlay">
+        <h3>Ledger for {tenantName}</h3>
+        <p>Loading transactions...</p>
+        <button onClick={onClose}>Close</button>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="tenant-ledger-overlay error">
+        <h3>Ledger for {tenantName}</h3>
+        <p>Error loading ledger: {error.message}</p>
+        <button onClick={onClose}>Close</button>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <h3>Ledger for Tenant {tenantId}</h3>
-      <h4>Current Balance: ${balance.toFixed(2)}</h4>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((tx) => (
-            <tr key={tx.id}>
-              <td>{tx.date}</td>
-              <td>{tx.description}</td>
-              <td>{tx.transaction_type}</td>
-              <td
-                style={{
-                  color: tx.transaction_type === "charge" ? "red" : "green",
-                }}
-              >
-                ${parseFloat(tx.amount).toFixed(2)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="tenant-ledger-overlay">
+      <h3>
+        Ledger for Tenant: {tenantName}
+        <button onClick={onClose} style={{ marginLeft: "10px" }}>
+          Close
+        </button>
+      </h3>
+      {transactions.length === 0 ? (
+        <p>No transactions found for this tenant.</p>
+      ) : (
+        <>
+          <h4>Current Balance: ${balance.toFixed(2)}</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transactions.map((transaction) => (
+                <tr key={transaction.id}>
+                  <td>{transaction.date}</td>
+                  <td>{transaction.description}</td>
+                  <td
+                    style={{
+                      color: transaction.type === "charge" ? "red" : "green",
+                    }}
+                  >
+                    ${parseFloat(transaction.amount).toFixed(2)}
+                  </td>
+                  <td>{transaction.type}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   );
 }

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TenantLedger from "./components/TenantLedger";
 
+/**
+ * Renders a list of all tenants, allowing users to view each tenant's financial ledger.
+ */
 function TenantList() {
   const [tenants, setTenants] = useState([]);
   const [error, setError] = useState(null);
@@ -77,4 +80,3 @@ function TenantList() {
 }
 
 export default TenantList;
-
